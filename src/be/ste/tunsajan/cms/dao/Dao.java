@@ -17,15 +17,9 @@ public class Dao {
 	private List<SousCategorieBeans> sousCategories;
 	private List<ProduitBeans> produits;
 	
-	public DaoYaka() {
+	public Dao(String persist_unit) {
 		super();
-		
-		this.em = Persistence.createEntityManagerFactory("yaka_db").createEntityManager();
-		this.categories = this.SQLQueryListerLesCategories();
-		this.sousCategories =this.SQLQueryListerLesSousCategories();
-		this.produits = this.SQLQueryListerLesProduits();
-		
-		
+		this.em = Persistence.createEntityManagerFactory(persist_unit).createEntityManager();	
 	}
 	public List<CategorieBeans> SQLQueryListerLesCategories(){
 		System.out.println("QUERY: ListerLesCategories");
