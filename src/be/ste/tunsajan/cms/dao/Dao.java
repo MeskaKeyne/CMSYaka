@@ -2,18 +2,17 @@ package be.ste.tunsajan.cms.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import javax.sql.DataSource;
 
-import be.ste.tunsajan.yaka.beans.CategorieBeans;
-import be.ste.tunsajan.yaka.beans.ProduitBeans;
-import be.ste.tunsajan.yaka.beans.SousCategorieBeans;
+import be.ste.tunsajan.cms.beans.CaracteristiquesBeans;
+import be.ste.tunsajan.cms.beans.CategorieBeans;
+import be.ste.tunsajan.cms.beans.ProduitBeans;
+import be.ste.tunsajan.cms.beans.SousCategorieBeans;
 
 public class Dao {
 	protected javax.persistence.EntityManager em;
 	
-	private List<CategorieBeans> categories;
+	private List<be.ste.tunsajan.cms.beans.CategorieBeans> categories;
 	private List<SousCategorieBeans> sousCategories;
 	private List<ProduitBeans> produits;
 	
@@ -33,6 +32,25 @@ public class Dao {
 		System.out.println("QUERY: ListerLesProduits");
 		return this.em.createNamedQuery("SQLQueryListerLesProduits", ProduitBeans.class).getResultList();
 		
+	}
+	public List<ProduitBeans> SQLQueryProduitsParSousCategoriesName(String cat_name){
+		System.out.println("QUERY: ListerLesProduits");
+		return this.em.createNamedQuery("SQLQueryProduitsParSousCategories", ProduitBeans.class)
+				.setParameter(1, cat_name)
+				.getResultList();
+		
+	}
+	public List<ProduitBeans> SQLQueryProduitsParSousCategoriesID(String id){
+		System.out.println("QUERY: ListerLesProduits");
+		return this.em.createNamedQuery("SQLQueryProduitsParSousCategoriesID", ProduitBeans.class)
+				.setParameter(1, id)
+				.getResultList();	
+	}
+	public List<CaracteristiquesBeans> SQLQueryOneCaracteristiquesByProduits(String produit_id, String propriete_id){
+		return this.em.createNamedQuery("SQLQueryOneCaracteristiquesByProduits", CaracteristiquesBeans.class)
+				.setParameter(1, produit_id)
+				.setParameter(2, propriete_id)
+				.getResultList();	
 	}
 	
 

@@ -1,5 +1,7 @@
 package be.ste.tunsajan.cms.beans;
 
+import java.io.Serializable;
+
 public class ProprietesBeans implements Serializable {
 	
 	private String _id;

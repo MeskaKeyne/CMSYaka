@@ -2,6 +2,8 @@ package be.ste.tunsajan.cms.beans;
 
 import java.io.Serializable;
 
+import be.tunsajan.cms.yaka.interfaces.ICategorie;
+
 
 public class SousCategorieBeans implements Serializable, ICategorie {
 	

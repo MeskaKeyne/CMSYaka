@@ -18,9 +18,35 @@
 		<query>select c from sous_categories as c</query>
 	</named-query>
 	
+	<named-native-query result-class="be.ste.tunsajan.cms.beans.ProduitBeans" name="SQLQueryProduitsParSousCategoriesName" >
+	
+		<query>	select produits.* from produits , sous_categories
+				where produits.prod_fk_sous_categories = sous_categories.sscat_id
+				and upper(sous_categories.sscat_nom) like upper(?1)
+		</query>
+	</named-native-query>
+	
+		<named-native-query result-class="be.ste.tunsajan.cms.beans.ProduitBeans" name="SQLQueryProduitsParSousCategoriesID" >
+	
+		<query>	select produits.* from produits
+				where produits.prod_fk_sous_categories = CAST((?1) AS INTEGER)
+		</query>
+	</named-native-query>
+	
+			<named-native-query result-class="be.ste.tunsajan.cms.beans.CaracteristiquesBeans" name="SQLQueryOneCaracteristiquesByProduits" >
+	
+		<query>	select distinct caracteristiques.*, proprietes.prop_nom
+				from caracteristiques, proprietes
+				where proprietes.prop_id = caracteristiques.car_fk_proprietes
+ 				and car_fk_produits = CAST((?1) AS INTEGER)
+ 				and car_fk_proprietes = CAST((?2) AS INTEGER)
+ 
+		</query>
+	</named-native-query>
+	
 	
 	<entity class="be.ste.tunsajan.cms.beans.CategorieBeans" name="Categories">
-		<table name="Categories"/>
+		<table name="categories"/>
 		<attributes>
 			<id name="_id"><column name="cat_id"/><generated-value strategy="IDENTITY"/></id>
 			<basic name="_nom"><column name="cat_nom"/></basic>
@@ -40,7 +66,7 @@
 	</entity>
 	
 	<entity class="be.ste.tunsajan.cms.beans.ProduitBeans" name="produits">
-		<table name="Produits"/>
+		<table name="produits"/>
 		<attributes>
 			<id name="_id"><column name="prod_id"/><generated-value strategy="IDENTITY"/></id>
 			<basic name="_nom"><column name="prod_nom"/></basic>
@@ -57,9 +83,9 @@
 		<table name="Caracteristiques"/>
 		<attributes>
 			<id name="_id"><column name="car_id"/><generated-value strategy="IDENTITY"/></id>
-			<basic name="_idProduit"><column name="car_fk_produits"/></basic>
 			<basic name="_valeur"><column name="car_valeur"/></basic>
 			<many-to-one name="_idPropriete"><join-column name="car_fk_proprietes"/></many-to-one>
+			<many-to-one name="_idProduit" target-entity="be.ste.tunsajan.cms.beans.ProduitBeans"><join-column name="car_fk_produits"/></many-to-one>
 		</attributes>
 	</entity>
 	

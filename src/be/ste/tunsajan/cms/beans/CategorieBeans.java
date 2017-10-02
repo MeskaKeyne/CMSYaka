@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 
-import be.ste.tunsajan.yaka.interfaces.ICategorie;
 
-public class CategorieBeans implements Serializable, ICategorie {
+public class CategorieBeans implements Serializable, be.tunsajan.cms.yaka.interfaces.ICategorie {
 	private String _id;
 	private String _nom;
 	private int _stats;
